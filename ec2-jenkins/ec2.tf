@@ -49,7 +49,7 @@ resource "aws_instance" "ec2-jenkins" {
   ami                    = "ami-0453ec754f44f9a4a"       # AMI ID
   instance_type          = "t2.medium"                    # 인스턴스 유형
   key_name               = "saju-key-test"                # 키 페어 설정
-  vpc_security_group_ids = [sg-08b376602ead799b0]   # 보안그룹 설정
+  vpc_security_group_ids = ["sg-08b376602ead799b0"]  # 보안그룹 설정
   availability_zone      = "us-east-1a"                  # 가용영역 설정
   user_data              = file("./userdata.sh")         # 사용자 데이터
   
