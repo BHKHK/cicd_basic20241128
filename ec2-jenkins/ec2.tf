@@ -10,8 +10,8 @@ variable "vpc_id" {
 
 # 보안 그룹
 resource "aws_security_group" "sg1" {
-  name           = "saju-us-sg-dev"
-  description    = "saju-us-sg-dev"
+  name           = "jenkins-sg-cicd"
+  description    = "jenkins-sg-cicd"
   vpc_id = var.vpc_id
 
   # 인바운드 규칙
@@ -39,29 +39,29 @@ resource "aws_security_group" "sg1" {
   }
 
   tags = {
-    Name         = "saju-api-sg-dev"
-    Service      = "saju-test"
+    Name         = "jenkins-sg-cicd"
+    Service      = "cicd-test"
   }
 }
 
 # EC2 생성
-resource "aws_instance" "ec2-1" {
-  ami                    = "ami-0166fe664262f664c"       # AMI ID
-  instance_type          = "t2.micro"                    # 인스턴스 유형
-  key_name               = "saju-key-dev"                # 키 페어 설정
-  vpc_security_group_ids = [aws_security_group.sg1.id]   # 보안그룹 설정
+resource "aws_instance" "ec2-jenkins" {
+  ami                    = "ami-0453ec754f44f9a4a"       # AMI ID
+  instance_type          = "t2.medium"                    # 인스턴스 유형
+  key_name               = "saju-key-test"                # 키 페어 설정
+  vpc_security_group_ids = [sg-08b376602ead799b0]   # 보안그룹 설정
   availability_zone      = "us-east-1a"                  # 가용영역 설정
   user_data              = file("./userdata.sh")         # 사용자 데이터
   
   # 볼륨 설정
   root_block_device {
-    volume_size  = 20
-    volume_type  = "gp2"
+    volume_size  = 30
+    volume_type  = "gp3"
   }
 
   tags = {
-    Name         = "saju-api-ec2-dev"
-    Service      = "saju-test"
+    Name         = "jenkins-ec2-cicd"
+    Service      = "cicd-test"
   }
 
 }
@@ -70,11 +70,11 @@ resource "aws_instance" "ec2-1" {
 # 위치 : EC2 > 네트워크 및 보안 > 탄력적 IP
 # 
 resource "aws_eip" "eip" {
-  instance = aws_instance.ec2-1.id
+  instance = aws_instance.ec2-jenkins.id
 
   tags = {
-    Name         = "saju-eip-api"
-    Service      = "saju-test"
+    Name         = "jenkins-eip-cicd"
+    Service      = "cicd-test"
   }
 }
 

@@ -1,4 +1,8 @@
 #!/bin/bash
+
+# Amazon Linux 시간 설정
+sudo timedatectl set-timezone 'Asia/Seoul'
+
 # X-Window 시스템 및 GUI 유틸 설치
 yum install -y xorg-x11-xauth
 yum install -y dbus-x11
