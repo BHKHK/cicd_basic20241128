@@ -35,17 +35,8 @@ systemctl status docker
 usermod -aG docker ec2-user
 curl https://raw.githubusercontent.com/docker/docker-ce/master/components/cli/contrib/completion/bash/docker -o /etc/bash_completion.d/docker.sh
 
-# MySQL 서버 실행
-docker container run -d \
-    --name=mysqldb \
-    --restart=always \
-    -e MYSQL_ROOT_PASSWORD=education \
-    -e MYSQL_DATABASE=guestbook \
-    -p 3306:3306 \
-    yu3papa/mysql_hangul:2.0
-    
-# alias 등록
-echo "alias gnome-system-monitor='gnome-system-monitor > /dev/null 2>&1 &'" >> /home/ec2-user/.bashrc
-echo "alias nautilus='nautilus > /dev/null 2>&1 &'" >> /home/ec2-user/.bashrc
-echo "alias gedit='gedit > /dev/null 2>&1 &'" >> /home/ec2-user/.bashrc
-echo "alias chrome='/usr/bin/google-chrome-stable > /dev/null 2>&1 &'" >> /home/ec2-user/.bashrc
+# SonarQube 도커 실행
+docker run -d --name=sonarqube -p 9000:9000 --restart=always sonarqube:8.6-community
+docker container ls -a
+chrome
+
