@@ -13,4 +13,4 @@ usermod -aG docker ec2-user
 # SonarQube 도커 실행
 docker run -d --name=sonarqube -p 9000:9000 --restart=always sonarqube:8.6-community
 docker container ls -a
-
+chrome
